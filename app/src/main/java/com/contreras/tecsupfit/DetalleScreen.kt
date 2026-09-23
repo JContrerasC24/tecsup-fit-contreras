@@ -28,6 +28,7 @@ fun DetalleScreen(navController: NavController, nombreClase: String, horarioBase
         TopAppBar(
             title = { Text("Detalle de clase") },
             navigationIcon = {
+                // Validacion y pase de datos a la pantalla de confirmacion
                 IconButton(onClick = { navController.popBackStack() }) {
                     Icon(Icons.Default.ArrowBack, contentDescription = "Atrás")
                 }
