@@ -13,15 +13,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
+// Importaciones obligatorias para usar 'by remember' sin errores
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetalleScreen(navController: NavController, nombreClase: String, horarioBase: String) {
-    // Opciones para cumplir con "selección de opción única"
     val opcionesHorario = listOf(horarioBase, "8:00 pm (Extra)")
     var horarioSeleccionado by remember { mutableStateOf(opcionesHorario[0]) }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        // TopBar con botón de retroceso
         TopAppBar(
             title = { Text("Detalle de clase") },
             navigationIcon = {
@@ -32,7 +34,6 @@ fun DetalleScreen(navController: NavController, nombreClase: String, horarioBase
         )
 
         Column(modifier = Modifier.padding(16.dp)) {
-            // Tarjeta de información de la clase
             Card(
                 modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
@@ -45,7 +46,6 @@ fun DetalleScreen(navController: NavController, nombreClase: String, horarioBase
 
             Text("Elige tu horario / cupo:", fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 8.dp))
 
-            // Selección de opción única (RadioButtons)
             opcionesHorario.forEach { horario ->
                 Row(
                     Modifier
@@ -64,13 +64,12 @@ fun DetalleScreen(navController: NavController, nombreClase: String, horarioBase
                     Text(text = horario, modifier = Modifier.padding(start = 8.dp))
                 }
             }
+
             // Implementación de selección de cupo único
             Spacer(modifier = Modifier.weight(1f))
 
-            // Botón principal de acción
             Button(
                 onClick = {
-                    // Navegamos a confirmación pasando los datos finales
                     navController.navigate("confirmacion/$nombreClase/$horarioSeleccionado")
                 },
                 modifier = Modifier.fillMaxWidth().height(50.dp)
