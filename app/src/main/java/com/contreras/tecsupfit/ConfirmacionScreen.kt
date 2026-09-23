@@ -12,6 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+// Pantalla final del flujo secuencial mostrando el resumen
 
 @Composable
 fun ConfirmacionScreen(navController: NavController, nombreClase: String, horarioElegido: String) {
