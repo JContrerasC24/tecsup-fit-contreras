@@ -12,10 +12,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-
-// Importaciones obligatorias para usar 'by remember' sin errores
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -23,19 +21,25 @@ fun DetalleScreen(navController: NavController, nombreClase: String, horarioBase
     val opcionesHorario = listOf(horarioBase, "8:00 pm (Extra)")
     var horarioSeleccionado by remember { mutableStateOf(opcionesHorario[0]) }
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        // Recepción de parámetros de navegación de la clase elegida
-        TopAppBar(
-            title = { Text("Detalle de clase") },
-            navigationIcon = {
-                // Validacion y pase de datos a la pantalla de confirmacion
-                IconButton(onClick = { navController.popBackStack() }) {
-                    Icon(Icons.Default.ArrowBack, contentDescription = "Atrás")
-                }
-            }
-        )
+    // MEJORA IA: Estados para el Snackbar y Corrutinas
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
 
-        Column(modifier = Modifier.padding(16.dp)) {
+    // MEJORA IA: Envolvemos en Scaffold para poder mostrar el Snackbar
+    Scaffold(
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+        topBar = {
+            TopAppBar(
+                title = { Text("Detalle de clase") },
+                navigationIcon = {
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Atrás")
+                    }
+                }
+            )
+        }
+    ) { paddingValues ->
+        Column(modifier = Modifier.padding(paddingValues).padding(16.dp).fillMaxSize()) {
             Card(
                 modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
@@ -67,12 +71,16 @@ fun DetalleScreen(navController: NavController, nombreClase: String, horarioBase
                 }
             }
 
-            // Implementación de selección de cupo único
             Spacer(modifier = Modifier.weight(1f))
 
             Button(
                 onClick = {
-                    navController.navigate("confirmacion/$nombreClase/$horarioSeleccionado")
+                    // MEJORA IA: Mostrar Snackbar y simular carga antes de navegar
+                    scope.launch {
+                        snackbarHostState.showSnackbar("Procesando reserva...")
+                        delay(800) // Simula un tiempo de carga
+                        navController.navigate("confirmacion/$nombreClase/$horarioSeleccionado")
+                    }
                 },
                 modifier = Modifier.fillMaxWidth().height(50.dp)
             ) {
