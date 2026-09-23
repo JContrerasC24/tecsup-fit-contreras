@@ -64,7 +64,7 @@ fun DetalleScreen(navController: NavController, nombreClase: String, horarioBase
                     Text(text = horario, modifier = Modifier.padding(start = 8.dp))
                 }
             }
-
+            // Implementación de selección de cupo único
             Spacer(modifier = Modifier.weight(1f))
 
             // Botón principal de acción
