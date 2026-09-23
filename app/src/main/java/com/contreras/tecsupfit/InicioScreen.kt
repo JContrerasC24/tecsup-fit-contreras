@@ -68,6 +68,7 @@ fun InicioScreen(navController: NavController) {
                         },
                     elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
                 ) {
+                    // Implementación de LazyRow para filtros por día
                     Row(modifier = Modifier.padding(16.dp)) {
                         Column {
                             Text(clase.nombre, fontWeight = FontWeight.Bold, fontSize = 18.sp)
