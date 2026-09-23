@@ -78,7 +78,8 @@ fun DetalleScreen(navController: NavController, nombreClase: String, horarioBase
                     // MEJORA IA: Mostrar Snackbar y simular carga antes de navegar
                     scope.launch {
                         snackbarHostState.showSnackbar("Procesando reserva...")
-                        delay(800) // Simula un tiempo de carga
+                        // Tiempo de carga ajustado para mejor visualizacion
+                        delay(1200) // Simula un tiempo de carga
                         navController.navigate("confirmacion/$nombreClase/$horarioSeleccionado")
                     }
                 },
