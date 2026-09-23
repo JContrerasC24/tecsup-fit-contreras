@@ -24,6 +24,7 @@ fun DetalleScreen(navController: NavController, nombreClase: String, horarioBase
     var horarioSeleccionado by remember { mutableStateOf(opcionesHorario[0]) }
 
     Column(modifier = Modifier.fillMaxSize()) {
+        // Recepción de parámetros de navegación de la clase elegida
         TopAppBar(
             title = { Text("Detalle de clase") },
             navigationIcon = {
