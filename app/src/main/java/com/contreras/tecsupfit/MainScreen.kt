@@ -53,6 +53,7 @@ fun TecsupFitApp() {
                 }
             }
         }
+        // Aplicacion de padding del Scaffold para evitar superposicion con el bottomBar
     ) { paddingValues ->
         NavHost(
             navController = navController,
